@@ -184,9 +184,9 @@ function DashboardView({ visual, logs, theme }: any) {
       {/* Viewport */}
       <div className="space-y-6">
         <h3 className="text-[11px] font-black text-zinc-600 uppercase tracking-[0.3em] px-2">Visual_Pulse_Buffer</h3>
-        <section className="aspect-video bg-[#050505] border border-[#18181b] rounded-3xl overflow-hidden shadow-2xl relative flex items-center justify-center group ring-1 ring-white/[0.02]">
+        <section className="bg-[#050505] border border-[#18181b] rounded-3xl overflow-hidden shadow-2xl relative flex items-center justify-center group ring-1 ring-white/[0.02] min-h-[400px]">
           {visual ? (
-            <img src={visual} className="w-full h-full object-contain animate-in fade-in duration-700" alt="visual" />
+            <img src={visual} className="w-full h-auto max-h-full object-contain animate-in fade-in duration-700" alt="visual" />
           ) : (
             <div className="text-center opacity-10 scale-150 grayscale text-4xl">🦞</div>
           )}
