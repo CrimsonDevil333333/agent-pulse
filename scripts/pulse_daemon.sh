@@ -2,7 +2,14 @@
 # scripts/pulse_daemon.sh
 # This script tails a log file and broadcasts every line to Agent-Pulse.
 
-LOG_FILE="/mnt/ramdisk/system_pulse.log"
+# Detect environment
+if [ -d "/mnt/ramdisk" ]; then
+  DEFAULT_LOG="/mnt/ramdisk/system_pulse.log"
+else
+  DEFAULT_LOG="./system_pulse.log"
+fi
+
+LOG_FILE="${1:-$DEFAULT_LOG}"
 API_URL="http://localhost:8088/api/pulse"
 
 # Create log if it doesn't exist
