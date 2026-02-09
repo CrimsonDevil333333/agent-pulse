@@ -183,9 +183,9 @@ function DashboardView({ visual, logs, theme }: any) {
       <div className="space-y-6 flex flex-col min-h-[500px]">
         <h3 className="text-[11px] font-black text-zinc-600 uppercase tracking-[0.3em] px-2 md:text-right">Live_Logic_Trace</h3>
         <section className="flex-1 bg-[#09090b] border border-[#18181b] rounded-3xl flex flex-col overflow-hidden shadow-xl p-8">
-          <div className="space-y-10 overflow-y-auto custom-scrollbar">
-            {logs.slice(0, 6).map((log: any) => (
-              <div key={log.id} className="space-y-2">
+          <div className="space-y-10 overflow-y-auto custom-scrollbar pr-4">
+            {logs.map((log: any) => (
+              <div key={log.id} className="space-y-2 border-l border-white/5 pl-4 ml-1">
                 <div className="text-[10px] font-mono text-zinc-600 tracking-tight">{log.time}</div>
                 <div className="text-[11px] font-black uppercase tracking-widest italic" style={{ color: theme }}>{log.action}</div>
                 <p className="text-[13px] text-zinc-400 font-medium leading-relaxed">{log.message}</p>
