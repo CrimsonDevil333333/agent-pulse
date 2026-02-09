@@ -184,11 +184,15 @@ function DashboardView({ visual, logs, theme }: any) {
       {/* Viewport */}
       <div className="space-y-6">
         <h3 className="text-[11px] font-black text-zinc-600 uppercase tracking-[0.3em] px-2">Visual_Pulse_Buffer</h3>
-        <section className="bg-[#050505] border border-[#18181b] rounded-3xl overflow-hidden shadow-2xl relative flex items-center justify-center group ring-1 ring-white/[0.02] min-h-[400px]">
+        <section className="bg-[#050505] border border-[#18181b] rounded-3xl overflow-hidden shadow-2xl relative flex items-center justify-center group ring-1 ring-white/[0.02]">
           {visual ? (
-            <img src={visual} className="w-full h-auto max-h-full object-contain animate-in fade-in duration-700" alt="visual" />
+            <div className="w-full h-full flex items-center justify-center p-4">
+              <img src={visual} className="max-w-full max-h-[70vh] rounded-2xl shadow-2xl object-contain animate-in zoom-in-95 duration-700" alt="visual" />
+            </div>
           ) : (
-            <div className="text-center opacity-10 scale-150 grayscale text-4xl">🦞</div>
+            <div className="aspect-video flex items-center justify-center">
+              <div className="text-center opacity-10 scale-150 grayscale text-4xl">🦞</div>
+            </div>
           )}
         </section>
       </div>
