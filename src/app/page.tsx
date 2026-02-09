@@ -117,9 +117,6 @@ export default function Home() {
           ))}
         </nav>
 
-        <button className="text-[13px] font-black uppercase tracking-[0.2em] text-left hover:opacity-80 transition-opacity" style={{ color: aura.theme }}>
-          Settings
-        </button>
       </aside>
 
       {/* MAIN CONTENT */}
