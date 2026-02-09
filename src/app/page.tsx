@@ -286,7 +286,7 @@ function AuraView({ aura }: any) {
             }`}
           >
             <div className="flex justify-between items-start mb-8">
-              <span className="text-4xl grayscale group-hover:grayscale-0 transition-all">{p.icon}</span>
+              <span className={`text-4xl transition-all ${currentPersonaName === p.name ? "" : "grayscale group-hover:grayscale-0"}`}>{p.icon}</span>
               <div className="w-4 h-4 rounded-full" style={{ backgroundColor: p.theme }}></div>
             </div>
             <h3 className="text-2xl font-black text-white uppercase tracking-tight mb-2 italic">{p.name}</h3>
