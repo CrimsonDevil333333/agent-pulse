@@ -1,6 +1,4 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
 
 :root {
   --background: #000000;
@@ -10,6 +8,14 @@
   --accent: #ff3e00;
   --border: #18181b;
   --text-dim: #71717a;
+}
+
+@theme {
+  --color-accent: #ff3e00;
+  --color-sidebar: #050505;
+  --color-card: #09090b;
+  --color-border-custom: #18181b;
+  --color-text-dim: #71717a;
 }
 
 @layer base {
