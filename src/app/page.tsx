@@ -82,6 +82,7 @@ export default function Home() {
     { id: "logic", label: "Logic Trace" },
     { id: "aura", label: "Aura Manager" },
     { id: "vitals", label: "System Vitals" },
+    { id: "settings", label: "Settings" },
   ];
 
   return (
@@ -155,8 +156,27 @@ export default function Home() {
           {view === "logic" && <TraceView logs={logs} theme={aura.theme} />}
           {view === "vitals" && <VitalsView vitals={vitals} theme={aura.theme} />}
           {view === "aura" && <AuraView aura={aura} />}
+          {view === "settings" && <SettingsView />}
         </div>
       </main>
+    </div>
+  );
+}
+
+function SettingsView() {
+  return (
+    <div className="max-w-4xl mx-auto space-y-12 animate-in zoom-in-95 duration-700 py-10 text-center">
+      <div className="text-[120px] grayscale opacity-10">⚙️</div>
+      <div className="space-y-4">
+        <h2 className="text-5xl font-black text-white uppercase tracking-tighter italic">Settings</h2>
+        <p className="text-zinc-600 text-xs font-bold uppercase tracking-[0.4em]">System Configuration Layer Pending</p>
+      </div>
+      <div className="bg-white/5 border border-white/10 p-10 rounded-[32px] inline-block">
+        <p className="text-zinc-400 text-sm font-medium max-w-md leading-relaxed">
+          The Settings panel is currently being designed to handle real-time configuration of the SSE Bridge, 
+          History Buffer limits, and visual rendering presets.
+        </p>
+      </div>
     </div>
   );
 }
