@@ -267,6 +267,8 @@ function AuraView({ aura }: any) {
     { name: "Deep Thinker Node", theme: "#a855f7", mood: "Reasoning", icon: "🧠" },
   ];
 
+  const currentPersonaName = aura.name || aura.persona;
+
   return (
     <div className="max-w-4xl mx-auto space-y-12 animate-in zoom-in-95 duration-700 py-10">
       <div className="text-center space-y-4 mb-16">
@@ -280,7 +282,7 @@ function AuraView({ aura }: any) {
             key={p.name}
             onClick={() => updateAura({ theme: p.theme, persona: p.name, mood: p.mood })}
             className={`group bg-[#09090b] border p-10 rounded-[32px] text-left transition-all hover:scale-[1.02] active:scale-95 ${
-              aura.persona === p.name ? "border-white/20 ring-1 ring-white/10" : "border-[#18181b]"
+              currentPersonaName === p.name ? "border-white/20 ring-1 ring-white/10" : "border-[#18181b]"
             }`}
           >
             <div className="flex justify-between items-start mb-8">
@@ -289,7 +291,7 @@ function AuraView({ aura }: any) {
             </div>
             <h3 className="text-2xl font-black text-white uppercase tracking-tight mb-2 italic">{p.name}</h3>
             <p className="text-zinc-500 text-xs font-bold uppercase tracking-widest">Protocol: {p.mood}</p>
-            {aura.persona === p.name && (
+            {currentPersonaName === p.name && (
               <div className="mt-6 text-[10px] font-black uppercase tracking-[0.2em]" style={{ color: p.theme }}>
                 Active_Signature
               </div>
