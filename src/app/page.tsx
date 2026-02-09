@@ -189,7 +189,7 @@ function DashboardView({ visual, logs, theme }: any) {
             CANVAS RENDER (APT-AURA)
           </div>
           {visual ? (
-            <img src={visual} className="w-full h-full object-contain p-10 animate-in fade-in duration-700" alt="visual" />
+            <img src={visual} className="w-full h-full object-contain animate-in fade-in duration-700" alt="visual" />
           ) : (
             <div className="text-center opacity-10 scale-150 grayscale text-4xl">🦞</div>
           )}
