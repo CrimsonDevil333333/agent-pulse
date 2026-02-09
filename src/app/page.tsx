@@ -16,64 +16,65 @@ export default function Home() {
   const [visual, setVisual] = useState<string | null>(null);
   const [vitals, setVitals] = useState({ cpu: "18%", temp: "46°C", ram: "4.8 / 16GB" });
   const [isSidebarOpen, setSidebarOpen] = useState(false);
-  const [aura, setAura] = useState({ theme: "#3b82f6", persona: "AI Agent", mood: "Standby" });
+  const [aura, setAura] = useState({ theme: "#3b82f6", persona: "Standard Node", mood: "Standby" });
 
   useEffect(() => {
-    // Fetch last aura
-    fetch("/api/pulse/aura")
-      .then(res => res.json())
-      .then(data => {
-        if (data && data.payload) setAura(data.payload);
-      });
+    const hydrate = async () => {
+      // 1. Fetch last aura
+      const auraRes = await fetch("/api/pulse/aura");
+      const auraData = await auraRes.json();
+      if (auraData && auraData.payload) setAura(auraData.payload);
 
-    // Fetch last visual
-    fetch("/api/pulse/visual")
-      .then(res => res.json())
-      .then(data => {
-        if (data && data.payload) {
-          setVisual(`/api/render?file=${data.payload}&t=${Date.now()}`);
-        }
-      });
+      // 2. Fetch last visual
+      const visualRes = await fetch("/api/pulse/visual");
+      const visualData = await visualRes.json();
+      if (visualData && visualData.payload) {
+        setVisual(`/api/render?file=${visualData.payload}&t=${Date.now()}`);
+      }
 
-    // Fetch history first
-    fetch("/api/pulse/history")
-      .then(res => res.json())
-      .then(history => {
-        if (Array.isArray(history)) {
-          const formattedHistory = history
-            .filter(data => !data.type || data.type === "log")
-            .map(data => ({
-              id: Math.random().toString(36).substr(2, 9),
-              time: new Date().toLocaleTimeString('en-GB', { hour12: false }),
-              agent: data.agent || "SYSTEM",
-              action: data.action || "INFO",
-              message: data.message || "",
-            })).reverse();
-          setLogs(formattedHistory);
-        }
-      });
-
-    const eventSource = new EventSource("/api/pulse");
-    eventSource.onmessage = (event) => {
-      const data = JSON.parse(event.data);
-      if (data.type === "visual") setVisual(`/api/render?file=${data.payload}&t=${Date.now()}`);
-      if (data.type === "vitals") setVitals(data.payload);
-      if (data.type === "aura") setAura(data.payload);
-      
-      if (!data.type || data.type === "log") {
-        setLogs((prev) => [
-          {
+      // 3. Fetch history
+      const historyRes = await fetch("/api/pulse/history");
+      const historyData = await historyRes.json();
+      if (Array.isArray(historyData)) {
+        const formattedHistory = historyData
+          .filter(data => !data.type || data.type === "log")
+          .map(data => ({
             id: Math.random().toString(36).substr(2, 9),
             time: new Date().toLocaleTimeString('en-GB', { hour12: false }),
-            agent: data.agent || "CLAW",
+            agent: data.agent || "SYSTEM",
             action: data.action || "INFO",
             message: data.message || "",
-          },
-          ...prev.slice(0, 99),
-        ]);
+          })).reverse();
+        setLogs(formattedHistory);
       }
+
+      // 4. Connect to live stream
+      const eventSource = new EventSource("/api/pulse");
+      eventSource.onmessage = (event) => {
+        const data = JSON.parse(event.data);
+        if (data.type === "visual") setVisual(`/api/render?file=${data.payload}&t=${Date.now()}`);
+        if (data.type === "vitals") setVitals(data.payload);
+        if (data.type === "aura") setAura(data.payload);
+        
+        if (!data.type || data.type === "log") {
+          setLogs((prev) => [
+            {
+              id: Math.random().toString(36).substr(2, 9),
+              time: new Date().toLocaleTimeString('en-GB', { hour12: false }),
+              agent: data.agent || "CLAW",
+              action: data.action || "INFO",
+              message: data.message || "",
+            },
+            ...prev.slice(0, 99),
+          ]);
+        }
+      };
+      return eventSource;
     };
-    return () => eventSource.close();
+
+    let es: EventSource;
+    hydrate().then(eventSource => { es = eventSource; });
+    return () => { if (es) es.close(); };
   }, []);
 
   const navItems = [
@@ -133,7 +134,7 @@ export default function Home() {
         {/* Global Header */}
         <header className="flex flex-col md:flex-row justify-between items-start md:items-center px-10 py-10 gap-6">
           <div>
-            <h1 className="text-2xl font-black tracking-tighter text-white uppercase">{aura.persona} Node</h1>
+            <h1 className="text-2xl font-black tracking-tighter text-white uppercase">{aura.persona}</h1>
             <p className="text-[11px] font-bold text-[#71717a] uppercase tracking-[0.3em] mt-1.5 flex items-center gap-2">
               Uptime: 2d 4h 12m <span className="text-zinc-800">|</span> Mood: <span style={{ color: aura.theme }}>{aura.mood}</span>
             </p>
@@ -260,10 +261,10 @@ function AuraView({ aura }: any) {
   };
 
   const personas = [
-    { name: "Default Node", theme: "#3b82f6", mood: "Standby", icon: "🤖" },
-    { name: "Expert Dev", theme: "#ff3e00", mood: "Focused", icon: "🦞" },
-    { name: "Cyber Ninja", theme: "#10b981", mood: "Stealth", icon: "🥷" },
-    { name: "Deep Thinker", theme: "#a855f7", mood: "Reasoning", icon: "🧠" },
+    { name: "Standard Node", theme: "#3b82f6", mood: "Standby", icon: "🤖" },
+    { name: "Expert Dev Node", theme: "#ff3e00", mood: "Focused", icon: "🦞" },
+    { name: "Cyber Ninja Node", theme: "#10b981", mood: "Stealth", icon: "🥷" },
+    { name: "Deep Thinker Node", theme: "#a855f7", mood: "Reasoning", icon: "🧠" },
   ];
 
   return (
