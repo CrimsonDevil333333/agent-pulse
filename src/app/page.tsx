@@ -185,9 +185,6 @@ function DashboardView({ visual, logs, theme }: any) {
       <div className="space-y-6">
         <h3 className="text-[11px] font-black text-zinc-600 uppercase tracking-[0.3em] px-2">Visual_Pulse_Buffer</h3>
         <section className="aspect-video bg-[#050505] border border-[#18181b] rounded-3xl overflow-hidden shadow-2xl relative flex items-center justify-center group ring-1 ring-white/[0.02]">
-          <div className="absolute top-6 left-6 z-10 px-3 py-1.5 bg-black/60 backdrop-blur-md border border-white/5 rounded-lg text-[9px] text-zinc-500 font-bold uppercase tracking-widest">
-            CANVAS RENDER (APT-AURA)
-          </div>
           {visual ? (
             <img src={visual} className="w-full h-full object-contain animate-in fade-in duration-700" alt="visual" />
           ) : (
