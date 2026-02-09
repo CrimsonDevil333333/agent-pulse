@@ -16,9 +16,16 @@ export default function Home() {
   const [visual, setVisual] = useState<string | null>(null);
   const [vitals, setVitals] = useState({ cpu: "18%", temp: "46°C", ram: "4.8 / 16GB" });
   const [isSidebarOpen, setSidebarOpen] = useState(false);
-  const [aura, setAura] = useState({ theme: "#ff3e00", persona: "Expert Dev", mood: "Focused" });
+  const [aura, setAura] = useState({ theme: "#3b82f6", persona: "AI Agent", mood: "Standby" });
 
   useEffect(() => {
+    // Fetch last aura
+    fetch("/api/pulse/aura")
+      .then(res => res.json())
+      .then(data => {
+        if (data && data.payload) setAura(data.payload);
+      });
+
     // Fetch last visual
     fetch("/api/pulse/visual")
       .then(res => res.json())
@@ -253,10 +260,10 @@ function AuraView({ aura }: any) {
   };
 
   const personas = [
+    { name: "Default Node", theme: "#3b82f6", mood: "Standby", icon: "🤖" },
     { name: "Expert Dev", theme: "#ff3e00", mood: "Focused", icon: "🦞" },
     { name: "Cyber Ninja", theme: "#10b981", mood: "Stealth", icon: "🥷" },
-    { name: "Deep Thinker", theme: "#3b82f6", mood: "Reasoning", icon: "🧠" },
-    { name: "Ghost Mode", theme: "#71717a", mood: "Shadow", icon: "👻" },
+    { name: "Deep Thinker", theme: "#a855f7", mood: "Reasoning", icon: "🧠" },
   ];
 
   return (

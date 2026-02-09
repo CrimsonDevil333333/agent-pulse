@@ -5,6 +5,7 @@ import path from "path";
 let clients: ReadableStreamDefaultController[] = [];
 const HISTORY_FILE = "/mnt/ramdisk/pulse_history.json";
 const LAST_VISUAL_FILE = "/mnt/ramdisk/last_visual.json";
+const LAST_AURA_FILE = "/mnt/ramdisk/last_aura.json";
 
 // Initialize history file
 if (!fs.existsSync(HISTORY_FILE)) {
@@ -23,6 +24,9 @@ function saveToHistory(data: any) {
   try {
     if (data.type === "visual") {
       fs.writeFileSync(LAST_VISUAL_FILE, JSON.stringify(data));
+    }
+    if (data.type === "aura") {
+      fs.writeFileSync(LAST_AURA_FILE, JSON.stringify(data));
     }
     const history = getHistory();
     history.push(data);
