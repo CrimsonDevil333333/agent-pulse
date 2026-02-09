@@ -31,7 +31,13 @@ A revolutionary way to manage AI personas and UI branding.
 *   **State Persistence**: Your selected identity survives refreshes and server restarts.
 
 ![Aura Manager](assets/screenshots/aura_manager.png)
-![Cyber Ninja Mode](assets/screenshots/cyber_ninja_mode.png)
+
+### ⚙️ System Settings
+The command center for fine-tuning the broadcast experience.
+*   **Configurable Buffer**: (Design Pending) Real-time adjustments for history limits and SSE heartbeats.
+*   **Hardware Hooks**: Direct access to vitals scraping frequency and logging levels.
+
+![Settings View](assets/screenshots/settings.png)
 
 ---
 
